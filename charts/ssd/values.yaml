@@ -69,8 +69,12 @@ global:
     ingress:
       annotations:
         kubernetes.io/ingress.class: nginx
-        nginx.ingress.kubernetes.io/client-header-buffer-size: 100k
-        nginx.ingress.kubernetes.io/proxy-body-size: 50m
+        nginx.ingress.kubernetes.io/client-header-buffer-size: 100m
+        nginx.ingress.kubernetes.io/proxy-body-size: 500m
+        nginx.ingress.kubernetes.io/client-header-buffer-size: 100m
+        nginx.ingress.kubernetes.io/proxy-connect-timeout: "18000"
+        nginx.ingress.kubernetes.io/proxy-read-timeout: "18000"
+        nginx.ingress.kubernetes.io/proxy-send-timeout: "18000"
       tls:
         secretName: ssd-ui-ingress
 
@@ -206,7 +210,7 @@ toolchain:
   ## Image specific details
   image:
     repository: tool-chain
-    tag: "2024-05-00"
+    tag: "2024-05-01"
     pullPolicy: IfNotPresent
 
   annotations: {}
@@ -225,7 +229,7 @@ supplychainpreprocessor:
   ## Image specific details
   image:
     repository: supplychain-preprocessor
-    tag: "2024-05-00"
+    tag: "2024-06-01"
     pullPolicy: IfNotPresent
 
   annotations: {}
@@ -239,7 +243,7 @@ ssdopa:
   ## Image specific details
   image:
     repository: ssd-opa
-    tag: "2024-05-01"
+    tag: "2024-06-01"
     pullPolicy: IfNotPresent
 
   annotations: {}
@@ -251,7 +255,7 @@ supplychainapi:
   ## Image specific details
   image:
     repository: supplychain-api
-    tag: "2024-05-01"
+    tag: "2024-05-02"
     pullPolicy: IfNotPresent
 
   annotations: {}
@@ -282,10 +286,10 @@ rabbitmq:
   url: rabbitmq-service
   port: 5672
   username: rabbitmq
-  password: Networks123
+  password: 7I3g7jUgIL
   image:
     registry: quay.io/opsmxpublic/rabbitmq
-    repository: 3-management
+    repository: "2024-05-00"
 
   annotations: {}
 
