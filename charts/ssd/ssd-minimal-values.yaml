@@ -44,3 +44,5 @@ ssdgate:
   - admin
   saml:
     saml_initiated_login: false
+
+storageClass: "gp2"
