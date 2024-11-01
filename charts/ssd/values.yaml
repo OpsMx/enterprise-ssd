@@ -428,9 +428,9 @@ redis:
   persistence:
     storageClass: {{ .Values.global.storageClass }}
 
-  # Uncomment if you don't want to create a PVC for redis
-  #  master:
-  #    persistence:
+  master:
+    persistence:
+      storageClass: {{ .Values.global.storageClass }}
   #      enabled: false
 #########################################################################
 temporal:
