@@ -67,12 +67,11 @@ ssdgate:
 # The below storage class for SSD-DB,Tool Chain,Dgraph. If set to empty the default value will be set
 storageClass: "gp2"
 
-# Type for the Rabbit MQ, default is LB, can be changed to ClusterIP,NodePort
-RabbitServiceType: NodePort
-
-
 # Type of Service for SSD UI, can be changed to NodePort
 UIServiceType: NodePort
+
+# Type for the Rabbit MQ, default is LB, can be changed to ClusterIP,NodePort
+RabbitServiceType: LoadBalancer
 
 redis:
   master:
