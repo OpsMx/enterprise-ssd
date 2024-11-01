@@ -106,7 +106,7 @@ spec:
       name: ssd-db-postgresql
     spec:
       {{- if .Values.db.storageClass }}
-      storageClassName: {{ .Values.db.storageClassName }}
+      storageClassName: {{ .Values.db.storageClass }}
       {{- end }}
       accessModes:
       - ReadWriteOnce
