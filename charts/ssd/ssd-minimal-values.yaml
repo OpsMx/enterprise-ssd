@@ -17,7 +17,8 @@ global:
     ingress:
       annotations:
         kubernetes.io/ingress.class: alb
-        alb.ingress.kubernetes.io/scheme: "internal"
+        #alb.ingress.kubernetes.io/scheme: internet-facing
+        alb.ingress.kubernetes.io/scheme: internal
         #alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-2016-08
         # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-west-2:732813442182:certificate/<certificate-id>
         alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-west-2:<aws-account-id:certificate/<cert-id>
@@ -72,7 +73,17 @@ UIServiceType: NodePort
 
 # Type for the Rabbit MQ, default is LB, can be changed to ClusterIP,NodePort
 RabbitServiceType: LoadBalancer
-
+rabbitmq:
+  serviceAnnotations:
+    service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: Name=rabbitmq,NLBType=public
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-port: traffic-port
+    service.beta.kubernetes.io/aws-load-balancer-ip-address-type: ipv4
+    service.beta.kubernetes.io/aws-load-balancer-name: rabbitmq
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: instance
+    #service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internal
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+          
 redis:
   master:
     persistence:
