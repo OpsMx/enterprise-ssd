@@ -1,0 +1,6 @@
+storageClass: gp2
+global.storageClass: gp2
+global.minio.persistence.storageClass: gp2
+toolchain.persistence.storageClass: gp2
+global.redis.master.persistence.storageClass: gp2
+global.redis.persistence.storageClass: gp2
