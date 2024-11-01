@@ -1,4 +1,4 @@
-#####################################################
+_#####################################################
 
 # OpsMx Secure Software Delivery
 #####################################################
@@ -415,6 +415,8 @@ redis:
   master:
     affinity: {}
     tolerations: []
+    persistence:
+      storageClass: {{ .Values.global.storageClass }}
 
   ## Redis config file
   ## ref: https://redis.io/topics/config
@@ -428,10 +430,6 @@ redis:
   persistence:
     storageClass: {{ .Values.global.storageClass }}
 
-  master:
-    persistence:
-      storageClass: {{ .Values.global.storageClass }}
-  #      enabled: false
 #########################################################################
 temporal:
   server:
