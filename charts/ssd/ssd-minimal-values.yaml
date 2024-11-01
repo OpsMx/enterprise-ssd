@@ -13,15 +13,14 @@ global:
     # Change to http if global.certManager.installed is false
     protocol: https
     ## Update the host value with proper dns entry to access the SSD UI
-    host: ssd.qlaws.opsmx.net
+    host: ssd1.opsmx.info
     ingress:
       annotations:
         kubernetes.io/ingress.class: alb
-        #alb.ingress.kubernetes.io/scheme: internet-facing
-        alb.ingress.kubernetes.io/scheme: internal
+        alb.ingress.kubernetes.io/scheme: internet-facing
+        #alb.ingress.kubernetes.io/scheme: internal
         #alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-2016-08
         # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-west-2:732813442182:certificate/<certificate-id>
-        alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-west-2:<aws-account-id:certificate/<cert-id>
         #alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-west-2:xxxxx:certificate/cert1,
         #arn:aws:acm:us-west-2:xxxxx:certificate/cert2,arn:aws:acm:us-west-2:xxxxx:certificate/cert3
         alb.ingress.kubernetes.io/target-type: instance
@@ -80,11 +79,12 @@ rabbitmq:
     service.beta.kubernetes.io/aws-load-balancer-ip-address-type: ipv4
     service.beta.kubernetes.io/aws-load-balancer-name: rabbitmq
     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: instance
-    #service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
-    service.beta.kubernetes.io/aws-load-balancer-scheme: internal
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+    #service.beta.kubernetes.io/aws-load-balancer-scheme: internal
     service.beta.kubernetes.io/aws-load-balancer-type: nlb
           
 redis:
   master:
     persistence:
       storageClass: "gp2"
+
