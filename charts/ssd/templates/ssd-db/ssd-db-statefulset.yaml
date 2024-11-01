@@ -105,14 +105,14 @@ spec:
         component: db
       name: ssd-db-postgresql
     spec:
+      {{- if .Values.db.storageClass }}
+      storageClassName: {{ .Values.db.storageClassName }}
+      {{- end }}
       accessModes:
       - ReadWriteOnce
       resources:
         requests:
           storage: {{ .Values.db.storageMountSize }}
       volumeMode: Filesystem
-      {{- if .Values.db.storageClassName }}
-      storageClassName: {{ .Values.db.storageClassName }}
-      {{- end -}}
 {{- end -}}
 {{- end -}}

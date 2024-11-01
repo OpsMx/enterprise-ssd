@@ -132,6 +132,9 @@ spec:
         {{- else }}
             volumeClaimTemplate:
               spec:
+                {{- if .Values.persistence.storageClass }}
+                storageClassName: "{{ .Values.persistence.storageClass }}"
+                {{- end }}
                 accessModes:
                 - {{ .Values.toolchain.persistence.accessMode }}
                 resources:
