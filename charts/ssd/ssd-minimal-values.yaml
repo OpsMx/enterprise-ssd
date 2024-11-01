@@ -2,10 +2,20 @@
 #####################################################
 #k8sServiceType: LoadBalancer
 ####################################################
+
+#StorageClass value for your target cluster. All storage class related entries are group here. 
+#K8s admin should be able to give you the value (standard|gp2|other) for PVC
+#Obtained from kubectl get storageclass. Outputs name field is used here
+storageClass: gp2
+global.storageClass: gp2
+global.minio.persistence.storageClass: gp2
+toolchain.persistence.storageClass: gp2
+global.redis.master.persistence.storageClass: gp2
+global.redis.persistence.storageClass: gp2
+
 # Global variables can be accessed across all the charts including sub-charts
 global:
   #Sets storageclass for the main ssd chart and all its sub-charts
-  storageClass: "gp2"
 
   # If cert-manager is installed, TLS secrets will created automatically, as an 'Issuer' will be created
   certManager:  # set to true if cert-manager is installed

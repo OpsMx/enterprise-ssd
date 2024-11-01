@@ -1,4 +1,4 @@
-_#####################################################
+#####################################################
 
 # OpsMx Secure Software Delivery
 #####################################################
@@ -8,7 +8,7 @@ imageCredentials:
   # Update this is using a private repo such as ACR, ECR, GCR, JFrog, etc.
   registry: quay.io/opsmxpublic
 
-storageClass: {{ .Values.global.storageClass }}
+storageClass: standard
 # noPvc is true, no PVCs will be created, suitable for minikube
 noPvc: false
 
@@ -110,7 +110,7 @@ global:
     affinity: {}
     tolerations: []
     persistence:
-      storageClass: {{ .Values.global.storageClass }}
+      storageClass: standard
       enabled: true
       size: 10Gi
 #  redis:
@@ -208,7 +208,7 @@ db:
   securityContext:
     fsGroup: 1000
 
-  storageClass: {{ .Values.global.storageClass }}
+  storageClass: standard
   ## storageMountSize is the size with which a PVC is to be created
   storageMountSize: 8Gi
 
@@ -227,7 +227,7 @@ toolchain:
   securityContext: {}
 
   persistence:
-    storageClass: {{ .Values.global.storageClass }}
+    storageClass: standard
     ## Change the pvc size as per the cluster requirements
     size: 50Gi
     accessMode: ReadWriteOnce
@@ -416,7 +416,7 @@ redis:
     affinity: {}
     tolerations: []
     persistence:
-      storageClass: {{ .Values.global.storageClass }}
+      storageClass: standard
 
   ## Redis config file
   ## ref: https://redis.io/topics/config
@@ -428,7 +428,7 @@ redis:
     save 60 1000
 
   persistence:
-    storageClass: {{ .Values.global.storageClass }}
+    storageClass: standard
 
 #########################################################################
 temporal:

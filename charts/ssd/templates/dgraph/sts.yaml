@@ -106,7 +106,7 @@ spec:
       spec:
         {{- if .Values.storageClass }}
         storageClassName: {{ .Values.storageClass }}
-        {{- end -}}
+        {{- end }}
         accessModes:
           - "ReadWriteOnce"
         resources:
