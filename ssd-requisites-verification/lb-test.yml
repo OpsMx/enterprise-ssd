@@ -45,7 +45,7 @@ metadata:
     alb.ingress.kubernetes.io/unhealthy-threshold-count: '5'
     alb.ingress.kubernetes.io/success-codes: '200'
     alb.ingress.kubernetes.io/subnets: subnet-04480eef9655bd567, subnet-0384ee7e483f4737d
-    alb.ingress.kubernetes.io/security-groups: k8s-gd-rabbitmq-07089dcc75, sg-00490d29dc05dde47
+    alb.ingress.kubernetes.io/security-groups: sg-00490d29dc05dde47
     alb.ingress.kubernetes.io/manage-backend-security-group-rules: "false"
 spec:
   ingressClassName: alb
