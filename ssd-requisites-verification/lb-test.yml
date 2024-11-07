@@ -10,8 +10,8 @@ metadata:
     #service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
     service.beta.kubernetes.io/aws-load-balancer-scheme: internal
     service.beta.kubernetes.io/aws-load-balancer-subnets: subnet-04480eef9655bd567, subnet-0384ee7e483f4737d
-    service.beta.kubernetes.io/aws-load-balancer-security-groups: sg-0797c17b80a6daf0d
-    service.beta.kubernetes.io/aws-load-balancer-manage-backend-security-group-rules: "false"
+    #service.beta.kubernetes.io/aws-load-balancer-security-groups: sg-0797c17b80a6daf0d
+    #service.beta.kubernetes.io/aws-load-balancer-manage-backend-security-group-rules: "false"
     service.beta.kubernetes.io/aws-load-balancer-type: nlb
   labels:
     app: ssd
@@ -45,8 +45,8 @@ metadata:
     alb.ingress.kubernetes.io/unhealthy-threshold-count: '5'
     alb.ingress.kubernetes.io/success-codes: '200'
     alb.ingress.kubernetes.io/subnets: subnet-04480eef9655bd567, subnet-0384ee7e483f4737d
-    alb.ingress.kubernetes.io/security-groups: sg-00490d29dc05dde47
-    alb.ingress.kubernetes.io/manage-backend-security-group-rules: "false"
+    #alb.ingress.kubernetes.io/security-groups: sg-00490d29dc05dde47
+    #alb.ingress.kubernetes.io/manage-backend-security-group-rules: "false"
 spec:
   ingressClassName: alb
   rules:
