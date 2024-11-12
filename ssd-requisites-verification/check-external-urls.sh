@@ -26,3 +26,4 @@ curl --max-time 10 -Is https://raw.githubusercontent.com | head -2
 
 echo -e "\n== https://api.vulncheck.com"
 curl --max-time 10 -Is https://api.vulncheck.com | head -2
+echo
