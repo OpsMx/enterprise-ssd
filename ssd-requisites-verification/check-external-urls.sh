@@ -16,14 +16,14 @@ content-length: 0
 ------------------------ "
 
 echo -e "\n== https://api.first.org"
-curl --max-time 10 -Is https://api.first.org | head -2
+curl --max-time 15 -Is https://api.first.org | head -2
 
 echo -e "\n== https://services.nvd.nist.gov"
-curl --max-time 10 -Is https://services.nvd.nist.gov | head -2
+curl --max-time 20 -Is https://services.nvd.nist.gov | head -2
 
 echo -e "\n== https://raw.githubusercontent.com"
-curl --max-time 10 -Is https://raw.githubusercontent.com | head -2
+curl --max-time 15 -Is https://raw.githubusercontent.com | head -2
 
 echo -e "\n== https://api.vulncheck.com"
-curl --max-time 10 -Is https://api.vulncheck.com | head -2
+curl --max-time 11 -Is https://api.vulncheck.com | head -2
 echo
