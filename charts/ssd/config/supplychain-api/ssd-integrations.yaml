@@ -268,3 +268,19 @@ integrationData:
             encrypt: false
           logoutIndicator:
             encrypt: false
+  - stage: Cloud Service Provider
+    integrations:
+      - integratorType: aws
+        category: cloudserviceprovider
+        integratorConfigs:
+          awsAccessKey:
+            encrypt: true
+          awsSecretKey:
+            encrypt: true
+  - stage: Cloud Security Posture Management
+    integrations:
+      - integratorType: scoutsuite
+        category: scanningtool
+        featureConfigs:
+          cspmscan:
+            default: inactive

@@ -1201,7 +1201,88 @@
                     }
                 }
             ]
-        }
+        },
+        {
+            "stage": "Cloud Service Provider",
+            "integrations": [
+              {
+                "integratorType": "aws",
+                "displayName": "AWS",
+                "multiSupport": true,
+                "deleteAccount": true,
+                "testConnectionFlag": true,
+                "category": "cloudserviceprovider",
+                "integratorConfigs": {
+                  "name": {
+                    "displayName": "Account Name",
+                    "dataType": "input",
+                    "required": true,
+                    "helpText": "",
+                    "placeholderText": "opsmx-accountname"
+                  },
+                  "awsAccessKey": {
+                    "dataType": "input",
+                    "displayName": "Access Key ID",
+                    "helpText": "Mandatory to update the Access Key if the repo is Private",
+                    "placeholderText": "Example:rxdtfcgvhbj",
+                    "required": false,
+                    "encrypt": true
+                  },
+                  "awsSecretKey": {
+                    "dataType": "input",
+                    "displayName": "Secret Access Key",
+                    "helpText": "Mandatory to update the encrypt Key if the repo is Private",
+                    "placeholderText": "Example:qwertyuisdxcv",
+                    "required": false,
+                    "encrypt": true
+                  }
+                },
+                "gridConfigs": [
+                  {
+                  "name": "Account Name",
+                  "prop": "name",
+                  "type": "default",
+                  "width": 160,
+                  "sortable": false,
+                  "defatultVisibility":true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "stage": "Cloud Security Posture Management",
+            "integrations": [
+                {
+                    "integratorType": "scoutsuite",
+                    "displayName": "ScoutSuite",
+                    "deleteAccount": true,
+                    "category": "scanningtool",
+                    "integratorConfigs": {
+                        "cspmscan": {
+                            "dataType": "checkbox",
+                            "dataTypeOptions": [
+                                {
+                                    "name": "active",
+                                    "value": "active"
+                                },
+                                {
+                                    "name": "inactive",
+                                    "value": "inactive"
+                                }
+                            ],
+                            "default": "active",
+                            "displayName": "CSPM Scan",
+                            "helpText": "Enable/Disable",
+                            "placeholderText": "Example:CSPM Scan",
+                            "required": false,
+                            "encrypt": false,
+                            "featureConfig": true
+                        }
+                    }
+                }
+            ]
+          }
     ],
     "featureConfigs": {
         "vulnerabilityscan": [

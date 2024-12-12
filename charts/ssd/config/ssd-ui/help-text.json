@@ -1002,6 +1002,24 @@
                     "invalidUrl": "File is invalid"
                 }
             }
+        },
+        "AWS": {
+            "HEADER": "AWS",
+            "BODY": "<p>Amazon Cloud Provider (AWS).</p> <div> <p><strong>Usage in SSD</strong></p> <ul> <li><strong>Image Scanning</strong>: SSD integrates with AWS to evaluate the CSPM of the customer. It detects all the services configured and runs security scans to identify vulnerabilities.</li> <li><strong>Metadata Collection</strong>: SSD collects metadata from AWS, such as EC2 instance details, S3 bucket configuration details, to perform supply chain security analysis and maintain audit records.</li> <li><strong>Results Display</strong>: The scan results are available in the CSPM page, providing insights into the security status and their associated risks.</li> </div>",
+            "NAME": {
+                "TOOLTIP": "",
+                "VALIDATION_MESSAGE": {
+                    "noSpecialCharacters": "Account Name cannot contain special characters other than -",
+                    "cannotContainSpace": "Account Name cannot contain space",
+                    "required": "Account Name cannot be empty",
+                    "startingFromNumber": "Account Name cannot start with numbers",
+                    "minlength": "Account Name should be more than 2 characters"
+                }
+            }
+        },
+        "SCOUTSUITE": {
+            "HEADER": "ScoutSuite",
+            "BODY": "<p>ScoutSuite is a Cloud Security Posture Management (CSPM) tool designed to evaluate the security posture of the entire Cloud service provider(AWS, GCP, AZURE, etc). It provides a set of metrics to assess the security practices and vulnerabilities associated with Cloud service provider configurations.</p><div class='usage-section'><p><strong>Usage in SSD</strong></p><ul><li><strong>Security Analysis:</strong> SSD utilizes ScoutSuite report to assess the CSPM of the organization as a whole. It assesses the security posture of cloud configuration by checking various security practices and metrics.</li><li><strong>Metadata Collection:</strong> SSD collects metadata such as resource details along with their configuration and the security findings associated with them.</li><li><strong>Results Display:</strong> The results of the security analysis are available on the DBOM page for audit purposes, providing insights into the security posture and helping to identify areas for improvement.</li></ul></div>"
         }
     },
     "UNCHANGED_FORM": "Form is unchanged. Please make modifications in the form to enable the button.",
