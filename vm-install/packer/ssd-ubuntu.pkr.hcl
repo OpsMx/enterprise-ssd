@@ -47,7 +47,6 @@ source "qemu" "ubuntu_prebake" {
   headless           = true
   ssh_port           = 2222
   ssh_wait_timeout   = "5m"
-cloud_init_connection = true
 
 
   qemuargs = [
@@ -55,6 +54,11 @@ cloud_init_connection = true
     ["-smp", var.cpu_cores],
     ["-net", "nic"],
     ["-net", "user,hostfwd=tcp::2222-:22"]
+  ]
+
+  floppy_files = [
+    "user-data",
+    "meta-data"
   ]
 }
 
