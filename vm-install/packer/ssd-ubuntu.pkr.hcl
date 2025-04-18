@@ -37,19 +37,24 @@ locals {
 source "qemu" "ubuntu_prebake" {
   iso_url            = var.iso_url
   iso_checksum       = var.iso_checksum
-  iso_checksum_type  = "sha256"
   output_directory   = "output-qcow2"
   format             = "qcow2"
   accelerator        = "none"
   vm_name            = local.image_name
   ssh_username       = "ubuntu"
-  ssh_password       = "ubuntu"
+  #ssh_password       = "ubuntu"
   disk_size          = 4096
   headless           = true
+  ssh_port           = 2222
+  ssh_wait_timeout   = "5m"
+cloud_init_connection = true
+
 
   qemuargs = [
     ["-m", "${var.memory}M"],
-    ["-smp", var.cpu_cores]
+    ["-smp", var.cpu_cores],
+    ["-net", "nic"],
+    ["-net", "user,hostfwd=tcp::2222-:22"]
   ]
 }
 
