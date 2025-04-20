@@ -5,10 +5,6 @@ set -e
 RELEASETAG=ami_image_creation_v2
 export RELEASETAG
 
-# 🔧 Render cloud-init config from template
-envsubst '${RELEASETAG}' <user-data.tpl >user-data
-echo "✅ Rendered user-data with RELEASETAG=$RELEASETAG"
-
 sudo apt update
 sudo apt install -y unzip curl
 sudo apt install gvncviewer
@@ -31,20 +27,29 @@ curl -fSL -o ssd-ubuntu.pkrvars.hcl https://raw.githubusercontent.com/OpsMx/ente
 
 curl -fSL -o auto-bundle.sh https://raw.githubusercontent.com/OpsMx/enterprise-ssd/$RELEASETAG/vm-install/image-setup/auto-bundle.sh
 
-IMG="jammy-server-cloudimg-amd64.img"
-IMG_URL="https://cloud-images.ubuntu.com/jammy/current/$IMG"
-CHECKSUM=$(curl -s https://cloud-images.ubuntu.com/jammy/current/SHA256SUMS | grep "$IMG" | awk '{print $1}')
+curl -fSL -o user-data.tpl https://raw.githubusercontent.com/OpsMx/enterprise-ssd/$RELEASETAG/vm-install/packer/user-data.tpl
 
-# Inject checksum into a Packer HCL file template
-envsubst <<EOF >ssd-ubuntu.pkrvars.hcl
-iso_url = "$IMG_URL"
-iso_checksum = "sha256:$CHECKSUM"
-EOF
+curl -fSL -o meta-data https://raw.githubusercontent.com/OpsMx/enterprise-ssd/$RELEASETAG/vm-install/packer/meta-data
+
+curl -fSL -o network-config https://raw.githubusercontent.com/OpsMx/enterprise-ssd/$RELEASETAG/vm-install/packer/network-config
+
+curl -fSL -o ssd-ubuntu.pkr.hcl https://raw.githubusercontent.com/OpsMx/enterprise-ssd/$RELEASETAG/vm-install/packer/ssd-ubuntu.pkr.hcl
+
+curl -fSL -o ssd-ubuntu.pkrvars.hcl https://raw.githubusercontent.com/OpsMx/enterprise-ssd/$RELEASETAG/vm-install/packer/ssd-ubuntu.pkrvars.hcl
+
+# 🔧 Render cloud-init config from template
+envsubst '${RELEASETAG}' <user-data.tpl >user-data
+echo "✅ Rendered user-data with RELEASETAG=$RELEASETAG"
+
+#IMG="jammy-server-cloudimg-amd64.img"
+#IMG_URL="https://cloud-images.ubuntu.com/jammy/current/$IMG"
+#CHECKSUM=$(curl -s https://cloud-images.ubuntu.com/jammy/current/SHA256SUMS | grep "$IMG" | awk '{print $1}')
+
+## Inject checksum into a Packer HCL file template
+#envsubst <<EOF > ssd-ubuntu.pkrvars.hcl
+#iso_url = "$IMG_URL"
+#iso_checksum = "sha256:$CHECKSUM"
+#EOF
 
 packer init .
 packer build -var-file=ssd-ubuntu.pkrvars.hcl .
-
-tail -f build-console.log
-PACKER_LOG=1 packer build -var-file=ssd-ubuntu.pkrvars.hcl . | tee build.log
-
-sudo lsof -iTCP -sTCP:LISTEN -nP | grep qemu
