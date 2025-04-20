@@ -88,7 +88,7 @@ if helm status cert-manager -n cert-manager &>/dev/null; then
 else
   echo "Installing cert-manager"
   helm install cert-manager jetstack/cert-manager \
-    --namespace cert-manager --create-namespace --set installCRDs=true
+    --namespace cert-manager --create-namespace --set installCRDs=true --wait
 fi
 
 if helm status ingress-nginx -n ingress-nginx &>/dev/null; then
@@ -96,5 +96,5 @@ if helm status ingress-nginx -n ingress-nginx &>/dev/null; then
 else
   echo "Installing ingress-nginx"
   helm install ingress-nginx ingress-nginx/ingress-nginx \
-    --namespace ingress-nginx --create-namespace
+    --namespace ingress-nginx --create-namespace --wait
 fi

@@ -7,7 +7,7 @@ export RELEASETAG
 
 sudo apt update
 sudo apt install -y unzip curl
-sudo apt install gvncviewer
+sudo apt install -y gvncviewer
 
 # Download the latest Packer binary
 PACKER_VERSION="1.12.0"
