@@ -22,12 +22,12 @@ variable "iso_checksum" {
 
 variable "memory" {
   type    = string
-  default = "4096"
+  default = "16384"
 }
 
 variable "cpu_cores" {
   type    = string
-  default = "2"
+  default = "4"
 }
 
 locals {
