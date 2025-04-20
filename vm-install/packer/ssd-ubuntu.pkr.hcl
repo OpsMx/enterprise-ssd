@@ -54,7 +54,7 @@ source "qemu" "ubuntu_prebake" {
   disk_size          = 32768
   headless           = true
   disk_image         = true
-  shutdown_timeout = "30m"
+  shutdown_timeout = "60m"
 
   floppy_label = "cidata"
   floppy_files = [
