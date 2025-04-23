@@ -12,8 +12,8 @@ ORG=$2
 
 INSTALL_DIR="/opt/opsmx"
 INSTALL_SCRIPT="$INSTALL_DIR/opsmxssd/install.sh"
-TARGET_FILE="$INSTALL_SCRIPT/opsmxssd/ssd-minimal-values.yaml"
-FALLBACK_FILE="$INSTALL_SCRIPT/opsmxssd/default-ssd-minimal-values.yaml"
+TARGET_FILE="$HOME/opsmxssd/ssd-minimal-values.yaml"
+FALLBACK_FILE="$INSTALL_DIR/opsmxssd/default-ssd-minimal-values.yaml"
 if [ "$#" -gt 2 ]; then
   REMOTE_URL=$3
   echo "Attempting to download values file from $REMOTE_URL"

@@ -42,9 +42,9 @@ done
 echo "K3s node is in Ready state."
 
 # Set coordonates for Kubernetes access
-sudo cp /etc/rancher/k3s/k3s.yaml k3s.yaml
-sudo chown $(whoami) k3s.yaml
-export KUBECONFIG=$(pwd)/k3s.yaml
+sudo cp /etc/rancher/k3s/k3s.yaml $HOME/.kube/k3s.yaml
+sudo chown $(whoami): $HOME/.kube/k3s.yaml
+export KUBECONFIG=$HOME/.kube/k3s.yaml
 kubectl get ns ssd || err_code=$?
 if [ $err_code!=0 ]; then
   kubectl create ns ssd

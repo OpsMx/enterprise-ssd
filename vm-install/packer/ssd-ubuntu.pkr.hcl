@@ -79,7 +79,7 @@ build {
   post-processor "shell-local" {
     inline = [
       "echo 'Converting QCOW2 to VMDK...'",
-      "qemu-img convert -O vmdk output-qcow2/${local.image_name} ${local.image_name}.vmdk",
+      "qemu-img convert -f qcow2 output-qcow2/${local.image_name} -O vmdk -o subformat=streamOptimized,compat6 ${local.image_name}.vmdk",
 
       "echo 'Creating OVF descriptor...'",
       "cat > ${local.image_name}.ovf <<EOF",
