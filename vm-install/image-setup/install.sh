@@ -61,7 +61,7 @@ helm repo update
 # Use yq to modify the values.yaml file dynamically based on the command-line arguments
 echo "Modifying values.yaml with host ($HOST) and organisationname ($ORG_NAME) parameters..."
 yq e '.' "$VALUES_FILE" >/dev/null || {
-  echo "❌ yq cannot read $VALUES_FILE"
+  echo "yq cannot read $VALUES_FILE"
   exit 1
 }
 

@@ -37,7 +37,7 @@ curl -fSL -o ssd-ubuntu.pkrvars.hcl https://raw.githubusercontent.com/OpsMx/ente
 
 # 🔧 Render cloud-init config from template
 envsubst '${RELEASETAG}' <user-data.tpl >user-data
-echo "✅ Rendered user-data with RELEASETAG=$RELEASETAG"
+echo "Rendered user-data with RELEASETAG=$RELEASETAG"
 
 # (when not dealing with version tags) Update release tag in version.env with what value is in enviornment variable
 sed -i "s/^RELEASETAG=.*/RELEASETAG=${RELEASETAG}/" version.env

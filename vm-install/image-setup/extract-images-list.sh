@@ -47,5 +47,5 @@ with open("$OUTPUT_FILE", "w") as out:
     for image in sorted(images):
         out.write(f"{image}\n")
 
-print(f"✅ Extracted {len(images)} images into: $OUTPUT_FILE")
+print(f"Extracted {len(images)} images into: $OUTPUT_FILE")
 EOF
