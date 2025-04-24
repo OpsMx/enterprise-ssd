@@ -81,6 +81,7 @@ build {
       "echo 'Converting QCOW2 to VMDK...'",
       "qemu-img convert -p -f qcow2 output-qcow2/${local.image_name} -O vmdk -o subformat=streamOptimized,compat6 ${local.image_name}.vmdk",
 
+      "echo 'VMDK generated successfully: ${local.image_name}.vmdk'"
       # "echo 'Creating OVF descriptor...'",
       # "cat > ${local.image_name}.ovf <<EOF",
       # "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
