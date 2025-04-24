@@ -59,7 +59,7 @@ ls $IMAGES_DIR
 for tarfile in "$IMAGES_DIR"/*.tar; do
   echo "Loading image from $tarfile"
   sudo docker load -i "$tarfile"
-  echo "deleting $tarfile"
+  echo "Deleting $tarfile"
   sudo rm $tarfile
 done
 echo "all images loaded from $IMAGES_DIR"
