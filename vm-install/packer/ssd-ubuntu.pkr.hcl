@@ -79,27 +79,27 @@ build {
   post-processor "shell-local" {
     inline = [
       "echo 'Converting QCOW2 to VMDK...'",
-      "qemu-img convert -f qcow2 output-qcow2/${local.image_name} -O vmdk -o subformat=streamOptimized,compat6 ${local.image_name}.vmdk",
+      "qemu-img convert -p -f qcow2 output-qcow2/${local.image_name} -O vmdk -o subformat=streamOptimized,compat6 ${local.image_name}.vmdk",
 
-      "echo 'Creating OVF descriptor...'",
-      "cat > ${local.image_name}.ovf <<EOF",
-      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
-      "<ovf:Envelope xmlns:ovf=\"http://schemas.dmtf.org/ovf/envelope/1\">",
-      "  <ovf:References>",
-      "    <ovf:File ovf:id=\"file1\" ovf:href=\"${local.image_name}.vmdk\" ovf:size=\"$(stat -c%s ${local.image_name}.vmdk)\"/>",
-      "  </ovf:References>",
-      "  <ovf:DiskSection>",
-      "    <ovf:Disk ovf:diskId=\"disk1\" ovf:fileRef=\"file1\" ovf:capacity=\"4294967296\"/>",
-      "  </ovf:DiskSection>",
-      "  <ovf:VirtualSystem ovf:id=\"${local.image_name}\">",
-      "    <ovf:Name>${local.image_name}</ovf:Name>",
-      "  </ovf:VirtualSystem>",
-      "</ovf:Envelope>",
-      "EOF",
-
-      "echo 'Creating OVA...'",
-      "tar -cvf ${local.image_name}.ova ${local.image_name}.ovf ${local.image_name}.vmdk",
-      "echo '✅ OVA generation complete: ${local.image_name}.ova'"
+      # "echo 'Creating OVF descriptor...'",
+      # "cat > ${local.image_name}.ovf <<EOF",
+      # "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+      # "<ovf:Envelope xmlns:ovf=\"http://schemas.dmtf.org/ovf/envelope/1\">",
+      # "  <ovf:References>",
+      # "    <ovf:File ovf:id=\"file1\" ovf:href=\"${local.image_name}.vmdk\" ovf:size=\"$(stat -c%s ${local.image_name}.vmdk)\"/>",
+      # "  </ovf:References>",
+      # "  <ovf:DiskSection>",
+      # "    <ovf:Disk ovf:diskId=\"disk1\" ovf:fileRef=\"file1\" ovf:capacity=\"4294967296\"/>",
+      # "  </ovf:DiskSection>",
+      # "  <ovf:VirtualSystem ovf:id=\"${local.image_name}\">",
+      # "    <ovf:Name>${local.image_name}</ovf:Name>",
+      # "  </ovf:VirtualSystem>",
+      # "</ovf:Envelope>",
+      # "EOF",
+      #
+      # "echo 'Creating OVA...'",
+      # "tar -cvf ${local.image_name}.ova ${local.image_name}.ovf ${local.image_name}.vmdk",
+      # "echo 'OVA generation complete: ${local.image_name}.ova'"
     ]
   }
 }

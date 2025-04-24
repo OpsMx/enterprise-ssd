@@ -42,6 +42,7 @@ done
 echo "K3s node is in Ready state."
 
 # Set coordonates for Kubernetes access
+mkdir -p "$HOME/.kube"
 sudo cp /etc/rancher/k3s/k3s.yaml $HOME/.kube/k3s.yaml
 sudo chown $(whoami): $HOME/.kube/k3s.yaml
 export KUBECONFIG=$HOME/.kube/k3s.yaml
