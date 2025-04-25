@@ -16,8 +16,15 @@ unzip packer.zip
 sudo mv packer /usr/local/bin/
 packer --version # confirm install
 packer plugins install github.com/hashicorp/qemu
+
+# Install QEMU
 sudo apt install -y qemu-system-x86 qemu-utils
 sudo apt install xorriso -y
+
+# Install AWS
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
 
 curl -fSL -o bundle-lite-prefetch.sh https://raw.githubusercontent.com/OpsMx/enterprise-ssd/$RELEASETAG/vm-install/image-setup/bundle-lite-prefetch.sh
 
