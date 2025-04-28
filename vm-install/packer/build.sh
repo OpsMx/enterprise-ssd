@@ -42,6 +42,10 @@ curl -fSL -o ssd-ubuntu.pkr.hcl https://raw.githubusercontent.com/OpsMx/enterpri
 
 curl -fSL -o ssd-ubuntu.pkrvars.hcl https://raw.githubusercontent.com/OpsMx/enterprise-ssd/$RELEASETAG/vm-install/packer/ssd-ubuntu.pkrvars.hcl
 
+curl -fSL -o ova-creator.sh https://raw.githubusercontent.com/OpsMx/enterprise-ssd/$RELEASETAG/vm-install/packer/ova-creator.sh
+
+chmod +x ova-creator.sh
+
 # 🔧 Render cloud-init config from template
 envsubst '${RELEASETAG}' <user-data.tpl >user-data
 echo "Rendered user-data with RELEASETAG=$RELEASETAG"
