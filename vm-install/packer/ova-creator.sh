@@ -26,18 +26,24 @@ fi
 VMDK_SIZE=$(stat -c%s "${IMAGE_NAME}.vmdk")
 BUFFER_BYTES=$((BUFFER_GB * 1024 * 1024 * 1024))
 
-# Calculate final capacity
+# Calculate final OVF disk capacity
 DISK_CAPACITY=$((VMDK_SIZE + BUFFER_BYTES))
+
+# Setup default vCPU and RAM recommendations
+VCPUS=8
+MEMORY_MB=32768 # 32 GB RAM in MB
 
 echo "Detected VMDK size: $VMDK_SIZE bytes (~$((VMDK_SIZE / 1024 / 1024 / 1024)) GiB)"
 echo "Adding buffer: ${BUFFER_GB} GB"
 echo "Final disk capacity for OVF: $DISK_CAPACITY bytes (~$((DISK_CAPACITY / 1024 / 1024 / 1024)) GiB)"
+echo "Setting virtual CPU: ${VCPUS}, Memory: ${MEMORY_MB} MB"
 
 # Create OVF descriptor
 cat >"${IMAGE_NAME}.ovf" <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <ovf:Envelope
     xmlns:ovf="http://schemas.dmtf.org/ovf/envelope/1"
+    xmlns:rasd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://schemas.dmtf.org/ovf/envelope/1 ovf.xsd">
 
@@ -61,6 +67,21 @@ cat >"${IMAGE_NAME}.ovf" <<EOF
 
     <ovf:VirtualHardwareSection>
       <ovf:Info>Virtual hardware requirements</ovf:Info>
+
+      <ovf:Item>
+        <rasd:ElementName>${VCPUS} virtual CPU</rasd:ElementName>
+        <rasd:InstanceID>1</rasd:InstanceID>
+        <rasd:ResourceType>3</rasd:ResourceType>
+        <rasd:VirtualQuantity>${VCPUS}</rasd:VirtualQuantity>
+      </ovf:Item>
+
+      <ovf:Item>
+        <rasd:ElementName>${MEMORY_MB} MB of memory</rasd:ElementName>
+        <rasd:InstanceID>2</rasd:InstanceID>
+        <rasd:ResourceType>4</rasd:ResourceType>
+        <rasd:VirtualQuantity>${MEMORY_MB}</rasd:VirtualQuantity>
+      </ovf:Item>
+
     </ovf:VirtualHardwareSection>
 
   </ovf:VirtualSystem>
