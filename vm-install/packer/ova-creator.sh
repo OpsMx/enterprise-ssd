@@ -75,11 +75,19 @@ cat >"${IMAGE_NAME}.ovf" <<EOF
         <rasd:VirtualQuantity>${VCPUS}</rasd:VirtualQuantity>
       </ovf:Item>
 
-      <ovf:Item>
+     <ovf:Item>
+        <rasd:AllocationUnits>byte * 2^20</rasd:AllocationUnits>
         <rasd:ElementName>${MEMORY_MB} MB of memory</rasd:ElementName>
         <rasd:InstanceID>2</rasd:InstanceID>
         <rasd:ResourceType>4</rasd:ResourceType>
         <rasd:VirtualQuantity>${MEMORY_MB}</rasd:VirtualQuantity>
+      </ovf:Item>
+
+      <ovf:Item>
+        <rasd:ElementName>Hard disk</rasd:ElementName>
+        <rasd:HostResource>ovf:/disk/disk1</rasd:HostResource>
+        <rasd:InstanceID>3</rasd:InstanceID>
+        <rasd:ResourceType>17</rasd:ResourceType>
       </ovf:Item>
 
     </ovf:VirtualHardwareSection>
