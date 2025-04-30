@@ -82,7 +82,7 @@ build {
       "qemu-img convert -p -f qcow2 output-qcow2/${local.image_name} -O vmdk -o subformat=streamOptimized,compat6 ${local.image_name}.vmdk",
 
       "echo 'VMDK generated successfully: ${local.image_name}.vmdk'"
-      "bash ova-creator.sh ${local.image_name} 4"
+      "bash ova-creator.sh ${local.image_name} 60"
     ]
   }
 }
