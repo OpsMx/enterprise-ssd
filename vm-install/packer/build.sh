@@ -56,15 +56,15 @@ sed -i "s/^RELEASETAG=.*/RELEASETAG=${RELEASETAG}/" version.env
 chmod +x bundle-lite-prefetch.sh
 ./bundle-lite-prefetch.sh
 
-#IMG="jammy-server-cloudimg-amd64.img"
-#IMG_URL="https://cloud-images.ubuntu.com/jammy/current/$IMG"
-#CHECKSUM=$(curl -s https://cloud-images.ubuntu.com/jammy/current/SHA256SUMS | grep "$IMG" | awk '{print $1}')
+IMG="noble-server-cloudimg-amd64.img"
+IMG_URL="https://cloud-images.ubuntu.com/noble/current"
+CHECKSUM=$(curl -s https://cloud-images.ubuntu.com/jammy/current/SHA256SUMS | grep "$IMG" | awk '{print $1}')
 
-## Inject checksum into a Packer HCL file template
-#envsubst <<EOF > ssd-ubuntu.pkrvars.hcl
-#iso_url = "$IMG_URL"
-#iso_checksum = "sha256:$CHECKSUM"
-#EOF
+# Inject checksum into a Packer HCL file template
+envsubst <<EOF >ssd-ubuntu.pkrvars.hcl
+iso_url = "$IMG_URL"
+iso_checksum = "sha256:$CHECKSUM"
+EOF
 
 packer init .
 PACKER_LOG=1 packer build -var-file=ssd-ubuntu.pkrvars.hcl .
