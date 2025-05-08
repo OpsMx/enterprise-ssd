@@ -57,8 +57,8 @@ chmod +x bundle-lite-prefetch.sh
 ./bundle-lite-prefetch.sh
 
 IMG="noble-server-cloudimg-amd64.img"
-IMG_URL="https://cloud-images.ubuntu.com/noble/current"
-CHECKSUM=$(curl -s https://cloud-images.ubuntu.com/jammy/current/SHA256SUMS | grep "$IMG" | awk '{print $1}')
+IMG_URL="https://cloud-images.ubuntu.com/noble/current/$IMG"
+CHECKSUM=$(curl -s https://cloud-images.ubuntu.com/noble/current/SHA256SUMS | grep "$IMG" | awk '{print $1}')
 
 # Inject checksum into a Packer HCL file template
 envsubst <<EOF >ssd-ubuntu.pkrvars.hcl
