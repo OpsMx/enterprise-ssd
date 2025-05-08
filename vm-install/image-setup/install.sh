@@ -42,9 +42,10 @@ done
 echo "K3s node is in Ready state."
 
 # Set coordonates for Kubernetes access
-sudo cp /etc/rancher/k3s/k3s.yaml k3s.yaml
-sudo chown $(whoami) k3s.yaml
-export KUBECONFIG=$(pwd)/k3s.yaml
+mkdir -p "$HOME/.kube"
+sudo cp /etc/rancher/k3s/k3s.yaml $HOME/.kube/k3s.yaml
+sudo chown $(whoami): $HOME/.kube/k3s.yaml
+export KUBECONFIG=$HOME/.kube/k3s.yaml
 kubectl get ns ssd || err_code=$?
 if [ $err_code!=0 ]; then
   kubectl create ns ssd
@@ -61,7 +62,7 @@ helm repo update
 # Use yq to modify the values.yaml file dynamically based on the command-line arguments
 echo "Modifying values.yaml with host ($HOST) and organisationname ($ORG_NAME) parameters..."
 yq e '.' "$VALUES_FILE" >/dev/null || {
-  echo "❌ yq cannot read $VALUES_FILE"
+  echo "yq cannot read $VALUES_FILE"
   exit 1
 }
 
