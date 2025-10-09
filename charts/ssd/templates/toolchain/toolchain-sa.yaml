@@ -1,4 +1,3 @@
-{{- if and (eq .Values.toolchain.iamrole false) (not .Values.minio.enabled) }}
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -6,5 +5,4 @@ metadata:
 {{- if .Values.toolchain.saAnnotations }}
   annotations:
 {{ toYaml .Values.toolchain.saAnnotations | indent 4 }}
-{{- end }}
 {{- end }}
