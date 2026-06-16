@@ -2,6 +2,40 @@ apiVersion: v1
 entries:
   ssd:
   - apiVersion: v2
+    appVersion: 2026.04.00
+    created: "2026-06-16T12:24:10.5563192Z"
+    dependencies:
+    - condition: ssdgate.installDex
+      name: dex
+      repository: ""
+      version: 0.15.3
+    - condition: minio.enabled
+      name: minio
+      repository: ""
+      version: 16.0.10
+    - condition: installRedis
+      name: redis
+      repository: ""
+      version: 21.1.11
+    - condition: temporal.enabled
+      name: temporal
+      repository: ""
+      version: 0.63.0
+    description: OpsMx Secure Software Delivery for CI/CD
+    digest: ad1971ee7ded614b4715c672090cad00dca1f89f6edd045a7e1060db39fbcd3e
+    home: https://www.opsmx.com/
+    icon: https://raw.githubusercontent.com/OpsMx/enterprise-spinnaker/master/img/opsmx.png
+    keywords:
+    - OpsMx
+    - SSD
+    maintainers:
+    - email: saiteja.katabhatina@opsmx.io
+      name: Sai Teja K
+    name: ssd
+    urls:
+    - https://github.com/OpsMx/enterprise-ssd/releases/download/ssd-2026.04.00/ssd-2026.04.00.tgz
+    version: 2026.04.00
+  - apiVersion: v2
     appVersion: 2026.02.00
     created: "2026-04-22T07:47:10.42369626Z"
     dependencies:
