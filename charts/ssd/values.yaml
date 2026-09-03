@@ -581,6 +581,9 @@ ssdrescheduler:
   ## Indicates the count of batches for retrying deployments
   deploymentRetryBatchCount: 5
 
+  ## Rescheduler to trigger the OSS Scan for Each Interval
+  ossSchedulerInterval: 240
+
   logLevel: info
 ###################################################################################################################
 tokenmachine:
@@ -792,7 +795,7 @@ zap:
 otel:
   image:
     repository: otel/opentelemetry-collector-contrib
-    tag: "0.146.1"
+    tag: "0.159.0"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
