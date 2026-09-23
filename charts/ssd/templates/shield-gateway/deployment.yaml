@@ -1,0 +1,117 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ssd-shield-gateway
+  labels:
+    app: ssd
+    component: ssd-shield-gateway
+{{ include "ssd.standard-labels" . | indent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app: ssd
+      component: ssd-shield-gateway
+  template:
+    metadata:
+      labels:
+        app: ssd
+        component: ssd-shield-gateway
+{{ include "ssd.standard-labels" . | indent 8 }}
+      annotations:
+{{- if .Values.shieldgateway.annotations -}}
+        {{ toYaml .Values.shieldgateway.annotations | nindent 8 }}
+{{- end }}
+    spec:
+      containers:
+        - name: ssd-shield-gateway
+          image: {{ template "shieldgateway.image" . }}
+          ports:
+            - name: grpc
+              containerPort: 9443
+              protocol: TCP
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: ssd-shield-gateway-config
+          env:
+          - name: GATEWAY_STORAGE_TYPE
+            value: s3
+          {{- if .Values.minio.enabled }}
+          - name: S3_ENDPOINT_URL
+            value: http://{{ .Release.Name }}-minio:9000
+          - name: S3_BUCKET
+            value: ssd-temporal
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: minio-secret
+                key: username
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: minio-secret
+                key: password
+          {{- else }}
+          - name: S3_ENDPOINT_URL
+            value: {{ .Values.s3bucketurl }}
+          - name: S3_BUCKET
+            value: {{ template "s3.bucketname" . }}
+          - name: S3_REGION
+            value: {{ .Values.s3region }}
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                key: accesskey
+                name: ssd-storage-secret
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                key: secretkey
+                name: ssd-storage-secret
+          {{- end }}
+          volumeMounts:
+            - name: token
+              readOnly: true
+              mountPath: /var/run/secrets/ssd
+            - name: tls-certs
+              mountPath: /etc/gateway/certs
+              readOnly: true
+      {{- with .Values.shieldgateway.resources }}
+          resources:
+      {{- toYaml . | nindent 12 }}
+      {{- end }}
+          securityContext:
+      {{- if .Values.shieldgateway.securityContext }}
+      {{ toYaml .Values.shieldgateway.securityContext | nindent 12 }}
+      {{- end }}
+      {{- if .Values.imagePullSecret }}
+      imagePullSecrets:
+      - name: {{ .Values.imagePullSecret }}
+      {{- end }}
+      volumes:
+        - name: token
+          secret:
+            defaultMode: 420
+            secretName: ssd-shield-gateway-token
+        - name: tls-certs
+          secret:
+            secretName: ssd-shield-gateway-certs
+            defaultMode: 420
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.topologySpreadConstraints }}
+      topologySpreadConstraints:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

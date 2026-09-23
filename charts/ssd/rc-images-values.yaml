@@ -1,0 +1,139 @@
+imageCredentials:
+  repoUrl: docker.io
+  # Update this is using a private repo such as ACR, ECR, GCR, JFrog, etc.
+  registry: opsmx11
+aibom:
+  image:
+    tag: "9491667-4"
+    
+aishield:
+  image:
+    tag: "2026-07-00"
+
+artifactscan:
+  image:
+    tag: "2026-07-00"
+
+airemediation:
+  image:
+    tag: "dev-fdb7696-27"
+
+cbom:
+  image:
+    tag: "2.1.12"
+
+checkmarx:
+  image:
+    tag: "2026-07-00"
+
+dlvs:
+  image:
+    tag: "b5b8de1-4"
+
+hbom:
+  image:
+    tag: "1234"
+
+kubescape:
+  image:
+    tag: "2026-07-00"
+
+licensegenerator:
+  image:
+    tag: "dev-4b423d1-12"
+
+mobsf:
+  image:
+    tag: "v4.1.3"
+
+opsmxassistant:
+  image:
+    tag: "dev-6bd4ce0-13"
+
+projectmonitor:
+  image:
+    tag: "dev-cec7941-136"
+
+prismiac:
+  image:
+    tag: "26f0bfa-main"
+
+pentestgpt:
+  image:
+    tag: "dev-03680cc-3"
+
+shieldgateway:
+  image: 
+    tag: "1b42ed5-10"
+
+shieldprocessor:
+  image:
+    tag: "2026-08-00"
+
+snykmonitor:
+  image:
+    tag: "67c2de3-12"
+
+sourcescan:
+  image:
+    tag: "2026-07-00"
+
+supplychainapi:
+  image:
+    tag: "a41eb6a-2902"
+
+supplychainpreprocessor:
+  image:
+    tag: "2026-07-00"
+
+ssdauditservice:
+  image:
+    tag: "dev-66d5a32-39"
+
+ssdgate:
+  image:
+    repository: ssd-gate
+    tag: "2026-07-00"
+
+ssdnotificationservice:
+  image:
+    tag: "2026-07-00"
+
+ssdopa:
+  image:
+    tag: "2026-07-00"
+
+ssdrescheduler:
+  image:
+    tag: "dev-d784b8a-29"
+
+tokenmachine:
+  image:
+    tag: "6a6e427-77"
+
+toolchain:
+  image:
+    tag: "0ff68e98-818"
+
+ui:
+  image:
+    tag: "fa7e7e54-1489"
+  serviceAnnotations:
+    awsAnnotationsGo: HERE
+
+aws-poller:
+  image:
+    tag: "2026-07-00"
+
+kubernetes-detector:
+  image:
+    tag: "2026-07-00"
+
+mcpserver:      
+  image:
+    tag: "dev-cc0ad95-3"
+
+zap:
+  image:
+    repository: zap
+    tag: "2026-03-00"
