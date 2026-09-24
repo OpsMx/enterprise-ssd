@@ -1057,6 +1057,8 @@ type Component {
     civns: [CIVN!]
     properties: [KeyValue!]
     subComponentRef: Component
+    recommendedVersion: String @search (by: [exact])
+    updatedRecommendedVersionAt: DateTime @search
 }
 
 type ComponentAnalysis {
