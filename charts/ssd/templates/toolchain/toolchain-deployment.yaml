@@ -97,6 +97,12 @@ spec:
               secretKeyRef:
                 key: mobsfapikey
                 name: mobsf-secret
+          - name: OssSvc
+            valueFrom:
+              secretKeyRef:
+                name: ssd-vuln-secret
+                key: ssd_vuln_url
+                optional: true                
           envFrom:
           - configMapRef:
               name: ssd-proxy-certs
