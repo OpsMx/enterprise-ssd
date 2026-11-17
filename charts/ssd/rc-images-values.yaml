@@ -1,7 +1,7 @@
 imageCredentials:
-  repoUrl: quay.io
+  repoUrl: docker.io
   # Update this is using a private repo such as ACR, ECR, GCR, JFrog, etc.
-  registry: opsmxpublic
+  registry: opsmx11
 aibom:
   image:
     tag: "2026-08-00"
