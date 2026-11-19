@@ -136,23 +136,6 @@ integrationData:
         featureConfigs:
           sonarqubeFileInsertion:
             default: inactive
-      - integratorType: cbomkit
-        category: sourcetool
-        multiaccount: false
-        integratorConfigs:
-          url:
-            encrypt: false
-        featureConfigs:
-          cbomScan:
-            default: active
-          mode:
-            default: local
-      - integratorType: openssf
-        category: scanningtool
-        multiaccount: false
-        featureConfigs:
-          openssfcompliancescan:
-            default: active
       - integratorType: virustotal
         category: sourcetool
         multiaccount: false
@@ -190,12 +173,6 @@ integrationData:
         featureConfigs:
           sastsemgrepscan:
             default: Local Mode
-      - integratorType: opengrep
-        category: sourcetool
-        multiaccount: false
-        featureConfigs:
-          sastopengrepscan:
-            default: active
       - integratorType: aibom
         category: sourcetool
         multiaccount: false
@@ -242,22 +219,6 @@ integrationData:
             encrypt: true
   - stage: Artifact
     integrations:
-      - integratorType: trivy
-        category: scanningtool
-        multiaccount: false
-        featureConfigs:
-          vulnerabilityscan:
-            default: inactive
-          helmscan:
-            default: active
-          secretscanforsource:
-            default: active
-          secretscanforcontainers:
-            default: active
-          licensescanforsource:
-            default: active
-          licensescanforcontainers:
-            default: active
       - integratorType: docker
         category: dockerregistry
         multiaccount: true
@@ -437,24 +398,6 @@ integrationData:
             encrypt: true
           source:
             encrypt: false
-      - integratorType: grype
-        category: scanningtool
-        multiaccount: false
-        featureConfigs:
-          vulnerabilityscan:
-            default: inactive
-      - integratorType: syft
-        category: scanningtool
-        multiaccount: false
-        featureConfigs:
-          vulnerabilityscan:
-            default: active
-      - integratorType: cdxgen
-        category: scanningtool
-        multiaccount: false
-        featureConfigs:
-          vulnerabilityscan:
-            default: inactive
       - integratorType: checkmarx
         category: scanningtool
         multiaccount: false
@@ -600,14 +543,6 @@ integrationData:
             encrypt: false
           token:
             encrypt: true
-      - integratorType: mobsf
-        category: scanningtool
-        multiaccount: false
-        featureConfigs:
-          staticScan:
-            default: inactive
-          dynamicScan:
-            default: inactive
       - integratorType: jiraxray
         category: scanningtool
         multiaccount: false
@@ -652,12 +587,12 @@ integrationData:
             default: get
           authMode:
             default: bearer
-      - integratorType: tfsec
+      - integratorType: opsmxiac
         category: communications
         multiaccount: false
         featureConfigs:
-          iactfsecscan:
-            default: Project Mode
+          application:
+            default: buildndeploy
         integratorConfigs:
           name:
             encrypt: false
@@ -668,8 +603,6 @@ integrationData:
           branch:
             encrypt: false
           scriptabsolutepath:
-            encrypt: false
-          application:
             encrypt: false
   - stage: Post Deploy
     integrations:
