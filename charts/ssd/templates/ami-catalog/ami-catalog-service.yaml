@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ami-catalog
+  labels:
+    app: ssd
+    component: ami-catalog
+{{ include "ssd.standard-labels" . | indent 4 }}
+spec:
+  ports:
+    - name: ami-catalog
+      protocol: TCP
+      port: 8200
+      targetPort: 8200
+  selector:
+    app: ssd
+    component: ami-catalog

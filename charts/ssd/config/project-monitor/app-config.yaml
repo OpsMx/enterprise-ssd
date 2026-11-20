@@ -10,3 +10,4 @@ artifact-scan:
     docker: artifact-scan-docker
     gitlab-registry: artifact-scan-gitlab
     general: artifact-scan-general
+    aws: artifact-scan-ami

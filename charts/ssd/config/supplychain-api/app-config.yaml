@@ -30,6 +30,15 @@ graphqlsvc:
 toolchain:
     host: http://tool-chain
     port: 8100
+# AMI scanning (OP-26140): the central SSD's AMI catalog, asked which
+# public AMIs it can scan for the AMI picker and project validation.
+# centralAddr is the same as tool-chain's publicAmiScanCentralAddr; the
+# API key is the Secret public-ami-scan-central (key apiKey), also used by
+# tool-chain.
+publicAmiCatalog:
+    enabled: false
+    # centralAddr: https://<central-ssd-host>/public-ami-scan
+    apiKeyPath: /app/secrets/public-ami-scan-central/apiKey
 ssdNotificationService:
     host: http://ssd-notification
     port: 9091

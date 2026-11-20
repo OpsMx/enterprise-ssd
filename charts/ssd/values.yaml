@@ -935,6 +935,27 @@ hbom:
 
   securityContext: {}
 #################################################################################
+# OP-26140: central SSD only. Ships scaled to 0; create the Secret ami-catalog
+# (keys accessKeyId, secretAccessKey) and set replicaCount to 1 on the central SSD.
+# The chart does not create Secrets for AMI scanning; create them by hand:
+#   central SSD: kubectl create secret generic ami-catalog --from-literal=accessKeyId=... --from-literal=secretAccessKey=...
+#     (IAM: ec2:DescribeImages, ec2:DescribeSnapshots, ec2:DescribeRegions, ssm:GetParametersByPath)
+#   central SSD, tool-chain serving public AMI SBOMs: Secret public-ami-scan, same keys
+#     (IAM: ec2:DescribeImages, ec2:DescribeSnapshots, ec2:CreateVolume, ec2:DescribeVolumes,
+#      ec2:DeleteVolume, ec2:CreateSnapshot, ec2:DeleteSnapshot, ebs:ListSnapshotBlocks, ebs:GetSnapshotBlock)
+#   local SSD: Secret public-ami-scan-central, key apiKey (the central ssdgate API key)
+amicatalog:
+  image:
+    repository: ami-catalog
+    tag: "latest" # set to the tag the ami-catalog Jenkins job pushes
+    pullPolicy: IfNotPresent
+
+  replicaCount: 0
+
+  annotations: {}
+
+  resources: {}
+#################################################################################
 prismiac:
   image:
     repository: prism-iac

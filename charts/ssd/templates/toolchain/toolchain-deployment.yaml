@@ -126,6 +126,12 @@ spec:
               readOnly: true
             - mountPath: /usr/local/share/ca-certificates
               name: custom-certs
+            - mountPath: /tools/secrets/public-ami-scan-central
+              name: public-ami-scan-central
+              readOnly: true
+            - mountPath: /tools/secrets/public-ami-scan
+              name: public-ami-scan
+              readOnly: true
           {{- with .Values.toolchain.probes }}
           {{- toYaml . | nindent 10 }}
           {{- else }}
@@ -198,6 +204,16 @@ spec:
             defaultMode: 420
             optional: true
             secretName: tool-chain-token
+        - name: public-ami-scan-central # Optional: local SSD's API key for the central SSD (public AMI scans)
+          secret:
+            defaultMode: 288
+            optional: true
+            secretName: public-ami-scan-central
+        - name: public-ami-scan # Optional: central SSD's AWS keys for reading public AMIs
+          secret:
+            defaultMode: 256
+            optional: true
+            secretName: public-ami-scan
         - name: ssd-public-keys
           configMap:
             defaultMode: 420

@@ -1,0 +1,21 @@
+listenAddr: ":8200"
+# Regions the central SSD scans in; empty means every region. Keep in step
+# with tool-chain's publicAmiScanRegions.
+# regions: [us-east-1]
+# Followed besides AWS's bare OS Linux images (learned per region):
+# Canonical (Ubuntu), Debian, Red Hat.
+extraOwners: ["099720109477", "136693071363", "309956199498"]
+# Every refreshInterval (and at startup) the catalog lists the followed
+# owners' public AMIs in every region, checks their snapshots, and keeps the
+# scannable ones for GET /api/v1/publicAmi/images.
+refreshInterval: 6h
+objectStore:
+  endpoint: http://{{ .Release.Name }}-minio:9000
+  region: us-east-1
+  bucket: ssd-temporal
+  key: ami-catalog/catalog-v2.json.gz
+# AWS keys (ec2:DescribeSnapshots, ec2:DescribeImages, ec2:DescribeRegions,
+# ssm:GetParametersByPath) from the Secret ami-catalog, keys accessKeyId and
+# secretAccessKey.
+credsPath: /tools/secrets/ami-catalog
+logLevel: info

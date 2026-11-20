@@ -1,0 +1,122 @@
+{{- /* OP-26140: ami-catalog runs on the central SSD only, so it ships with
+replicas: 0. On the central SSD, create the Secret ami-catalog (keys
+accessKeyId and secretAccessKey) and set amicatalog.replicaCount to 1. */}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ami-catalog
+  labels:
+    app: ssd
+    component: ami-catalog
+{{ include "ssd.standard-labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.amicatalog.replicaCount }}
+  selector:
+    matchLabels:
+      app: ssd
+      component: ami-catalog
+  template:
+    metadata:
+      labels:
+        app: ssd
+        component: ami-catalog
+{{ include "ssd.standard-labels" . | indent 8 }}
+      annotations:
+        checksum/configmap: {{ include (print $.Template.BasePath "/ami-catalog/ami-catalog-configmap.yaml") . | sha256sum }}
+{{- if .Values.amicatalog.annotations }}
+{{ toYaml .Values.amicatalog.annotations | indent 8 }}
+{{- end }}
+    spec:
+      securityContext:
+        fsGroup: 2000 # lets the non-root container read the mounted key files
+      containers:
+        - name: ami-catalog
+          image: {{ template "amicatalog.image" . }}
+          imagePullPolicy: {{ .Values.amicatalog.image.pullPolicy }}
+          args:
+            - -config=/etc/ami-catalog/config.yaml
+          ports:
+            - containerPort: 8200
+              protocol: TCP
+          env:
+            # MinIO, where the catalog saves its state after every refresh
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: minio-secret
+                  key: username
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: minio-secret
+                  key: password
+          volumeMounts:
+            - name: config
+              mountPath: /etc/ami-catalog
+              readOnly: true
+            - name: aws-keys
+              mountPath: /tools/secrets/ami-catalog
+              readOnly: true
+          resources:
+            {{- if .Values.amicatalog.resources }}
+            {{- toYaml .Values.amicatalog.resources | nindent 12 }}
+            {{- else }}
+            requests:
+              cpu: 50m
+              memory: 256Mi # about 40Mi of catalog state for 20 regions
+            limits:
+              memory: 512Mi
+            {{- end }}
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8200
+              scheme: HTTP
+            periodSeconds: 15
+            failureThreshold: 3
+            successThreshold: 1
+            timeoutSeconds: 1
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8200
+              scheme: HTTP
+            periodSeconds: 15
+            failureThreshold: 3
+            timeoutSeconds: 1
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 2000
+            runAsGroup: 2000
+            seccompProfile:
+              type: RuntimeDefault
+      {{- if .Values.imagePullSecret }}
+      imagePullSecrets:
+      - name: {{ .Values.imagePullSecret }}
+      {{- end }}
+      volumes:
+        - name: config
+          configMap:
+            name: ami-catalog
+            defaultMode: 420
+        - name: aws-keys # created by hand on the central SSD, never committed
+          secret:
+            secretName: ami-catalog
+            defaultMode: 288 # 0440: readable by fsGroup 2000
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

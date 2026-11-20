@@ -19,6 +19,15 @@ maxConcurrentSourceWorkflowTaskExecutionSize: 0 # optional field; default is 0 w
 aibomServiceAddr: "http://aibom-service:8082"
 aifpSvc: "http://ai-guardian-remediation:8588"
 aiEnabled: true
+# AMI scanning (OP-26140). Public AMIs are scanned by the central SSD.
+# Local SSD: set publicAmiScanEnabled and the central address, and create
+# the Secret public-ami-scan-central with key apiKey (the central ssdgate API key).
+publicAmiScanEnabled: false
+# publicAmiScanCentralAddr: https://<central-ssd-host>/public-ami-scan
+# Central SSD only: serve public AMI SBOMs. Needs the Secret public-ami-scan
+# with keys accessKeyId and secretAccessKey.
+# publicAmiScanServeEnabled: true
+# publicAmiScanRegions: [us-east-1]
 scoutSuite:
   maxWorkers: 10
   maxRate: {{ .Values.toolchain.maxRate }}

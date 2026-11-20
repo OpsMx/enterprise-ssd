@@ -168,6 +168,9 @@ spec:
             - mountPath: /app/secrets/supplychain-api-token/
               name: token
               readOnly: true
+            - mountPath: /app/secrets/public-ami-scan-central
+              name: public-ami-scan-central
+              readOnly: true
             - mountPath: /app/zapOpenApiSpec
               name: zap-openapi-spec
             - mountPath: /app/zapPostmanCollection
@@ -291,6 +294,11 @@ spec:
           secret:
             defaultMode: 420
             secretName: supplychain-api-token
+        - name: public-ami-scan-central # Optional: API key for the central SSD's AMI catalog (OP-26140)
+          secret:
+            defaultMode: 420 # supplychain-api runs as uid 1000, like its other Secret mounts
+            optional: true
+            secretName: public-ami-scan-central
         - name: custom-certs  # Optional: In case we are using any customer-specific custom CAs
           configMap:
             defaultMode: 420
