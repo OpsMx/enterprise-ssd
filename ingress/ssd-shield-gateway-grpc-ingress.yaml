@@ -1,0 +1,22 @@
+---
+# Agents' gRPC endpoint. No tls block: the gateway terminates mTLS itself, so ingress-nginx
+# must run with --enable-ssl-passthrough (cluster-wide). Host = GATEWAY_EXTERNAL_GRPC_ENDPOINT without :443.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+  name: ssd-shield-gateway-grpc-ingress
+spec:
+  rules:
+  - host: SSD-SHIELD.REPLACE.THIS.WITH.YOURCOMPANY.COM
+    http:
+      paths:
+      - backend:
+          service:
+            name: ssd-shield-gateway
+            port:
+              number: 9443
+        path: /
+        pathType: ImplementationSpecific

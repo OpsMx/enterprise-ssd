@@ -29,6 +29,7 @@ spec:
         - name: hbom-generator
           image: {{ template "hbom.image" . }}
           env:
+          # For AWS S3, drop S3_ENDPOINT_URL and set S3_Region, as in the gateway.
           {{- if .Values.minio.enabled }}
           - name: S3_ENDPOINT_URL
             value: "http://{{ .Release.Name }}-minio:9000"

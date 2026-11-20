@@ -19,6 +19,7 @@ CMDB_SERVICE_URL: ""
 GATEWAY_URL: "https://ssd-shield-gateway:8080"
 
 S3_ENDPOINT_URL: "http://{{ .Release.Name }}-minio:9000"
+# Must equal S3_BUCKET in ssd-shield-gateway-config: the gateway uploads the scans there.
 HBOM_SCANS_BUCKET: "ssd-temporal"
 HBOM_OUTPUTS_BUCKET: "ssd-temporal"
 
