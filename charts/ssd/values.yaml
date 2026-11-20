@@ -140,6 +140,17 @@ airemediation:
 
   securityContext: {}
 
+  ## OTLP gRPC endpoint for OTEL_EXPORTER_OTLP_ENDPOINT. Change it if your collector is not in the monitoring namespace.
+  otelEndpoint: "http://otel-collector-opentelemetry-collector.monitoring.svc.cluster.local:4317"
+
+  ## Rendered as plain env vars on ai-guardian-remediation (not in the secret). Values are the service defaults.
+  heartbeatInterval: 30          # REMEDIATION_HEARTBEAT_INTERVAL
+  ## False-positive (FP) analysis
+  fp:
+    maxConcurrency: 5            # FP_MAX_CONCURRENCY: max parallel per-file (SAST) / per-component (SCA) agent runs, shared by all FP runs
+    scaComponentTimeoutS: 300    # FP_SCA_COMPONENT_TIMEOUT_S: per-component timeout in seconds
+    allowedGitHosts: ""          # FP_ALLOWED_GIT_HOSTS: comma-separated git host allowlist for FP clones; empty = all public hosts
+
 ################################################    
 cspm:
   enabled: true

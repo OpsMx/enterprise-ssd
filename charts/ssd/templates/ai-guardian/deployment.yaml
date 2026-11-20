@@ -1,3 +1,6 @@
+{{- if lt (int .Values.airemediation.fp.maxConcurrency) 1 }}
+{{- fail "airemediation.fp.maxConcurrency (FP_MAX_CONCURRENCY) must be at least 1 (1 = sequential)" }}
+{{- end }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -29,7 +32,7 @@ spec:
         name: ai-guardian-remediation
         env:
         - name: OTEL_EXPORTER_OTLP_ENDPOINT
-          value: "http://otel-collector-opentelemetry-collector.monitoring.svc.cluster.local:4317"
+          value: {{ .Values.airemediation.otelEndpoint | quote }}
         - name: DB_ENABLED
           value: {{ .Values.db.enabled | quote }}
         - name: TELEMETRY_ENABLED
@@ -48,9 +51,17 @@ spec:
               name: redis-secret
               key: password
         - name: REDIS_HOST
-          value: ssd-redis-master
+          value: {{ .Release.Name }}-redis-master
         - name: REDIS_PORT
           value: "6379"
+        - name: REMEDIATION_HEARTBEAT_INTERVAL
+          value: {{ .Values.airemediation.heartbeatInterval | quote }}
+        - name: FP_MAX_CONCURRENCY
+          value: {{ .Values.airemediation.fp.maxConcurrency | quote }}
+        - name: FP_SCA_COMPONENT_TIMEOUT_S
+          value: {{ .Values.airemediation.fp.scaComponentTimeoutS | quote }}
+        - name: FP_ALLOWED_GIT_HOSTS
+          value: {{ .Values.airemediation.fp.allowedGitHosts | quote }}
         envFrom:
         - secretRef:
             name: {{ default "ai-guardian-remediation-secret" .Values.aiSecrets.airemediation.existingSecret }}
