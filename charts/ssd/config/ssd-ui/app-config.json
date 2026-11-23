@@ -30,6 +30,7 @@
         { "value": "ollama", "label": "Ollama" }
     ],
     "enableSbomSca": true,
+    "interactiveMode": false,
     "toolTransformationEnabled": true,
     "hbomFeature": true,
     "cbomRemediation": true,
