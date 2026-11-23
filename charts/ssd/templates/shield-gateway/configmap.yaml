@@ -7,4 +7,7 @@ metadata:
 {{ include "ssd.standard-labels" . | indent 4 }}
     component: ssd-shield-gateway
 data:
-{{ (tpl (.Files.Glob "config/ssd-shield-gateway/config.yaml").AsConfig . ) | indent 2 }}
+{{- /* One key per setting: the Deployment loads this ConfigMap with envFrom. */}}
+{{- range $key, $value := (tpl (.Files.Get "config/shield-gateway/config") . | fromYaml) }}
+  {{ $key }}: {{ $value | toString | quote }}
+{{- end }}

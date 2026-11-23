@@ -399,6 +399,8 @@ shieldgateway:
 
   serviceAnnotations: {}
 
+  probes: {}
+
   resources: {}
 
   securityContext: {}

@@ -18,6 +18,7 @@ spec:
         component: ssd-shield-gateway
 {{ include "ssd.standard-labels" . | indent 8 }}
       annotations:
+        checksum/configmap: {{ include (print $.Template.BasePath "/shield-gateway/configmap.yaml") . | sha256sum }}
 {{- if .Values.shieldgateway.annotations -}}
         {{ toYaml .Values.shieldgateway.annotations | nindent 8 }}
 {{- end }}
@@ -78,6 +79,24 @@ spec:
             - name: tls-certs
               mountPath: /etc/gateway/certs
               readOnly: true
+          {{- with .Values.shieldgateway.probes }}
+          {{- toYaml . | nindent 10 }}
+          {{- else }}
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+              scheme: HTTPS
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8080
+              scheme: HTTPS
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          {{- end }}
       {{- with .Values.shieldgateway.resources }}
           resources:
       {{- toYaml . | nindent 12 }}
