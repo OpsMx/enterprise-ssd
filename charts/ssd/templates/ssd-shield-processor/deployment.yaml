@@ -104,10 +104,41 @@ spec:
             - name: token
               readOnly: true
               mountPath: /var/run/secrets/ssd
-      {{- with .Values.ssdnotificationservice.resources }}
+          {{- with .Values.shieldprocessor.probes }}
+          {{- toYaml . | nindent 10 }}
+          {{- else }}
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 10
+            timeoutSeconds: 1
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          {{- end }}
           resources:
-      {{- toYaml . | nindent 12 }}
-      {{- end }}
+          {{- with .Values.shieldprocessor.resources }}
+          {{- toYaml . | nindent 12 }}
+          {{- else }}
+            limits:
+              cpu: "2"
+              memory: 6Gi
+            requests:
+              cpu: 500m
+              memory: 4Gi
+          {{- end }}
           securityContext:
       {{- if .Values.ssdnotificationservice.securityContext }}
       {{ toYaml .Values.ssdnotificationservice.securityContext | nindent 12 }}
