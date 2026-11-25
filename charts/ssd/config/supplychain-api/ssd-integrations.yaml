@@ -26,6 +26,12 @@ integrationData:
             encrypt: false
           token:
             encrypt: true
+      - integratorType: sourceConfig
+        category: sourcetool
+        multiaccount: false
+        featureConfigs:
+          auditSast:
+            default: inactive
       - integratorType: github
         category: sourcetool
         multiaccount: false
