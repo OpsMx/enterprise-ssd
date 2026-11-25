@@ -1,3 +1,9 @@
+# DEPRECATED: will be removed in the next release. The Helm chart now creates this ingress:
+# set global.createIngress=true, global.shieldGateway.ingress.enabled=true and
+# global.shieldGateway.host (templates/ingress/ssd-shield-gateway-grpc-ingress.yaml).
+# If this file was already applied, Helm cannot adopt it until you annotate/label it
+# (meta.helm.sh/release-name, meta.helm.sh/release-namespace, app.kubernetes.io/managed-by=Helm)
+# or delete it.
 ---
 # Agents' gRPC endpoint. No tls block: the gateway terminates mTLS itself, so ingress-nginx
 # must run with --enable-ssl-passthrough (cluster-wide). Host = GATEWAY_EXTERNAL_GRPC_ENDPOINT without :443.

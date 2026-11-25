@@ -123,6 +123,17 @@ global:
     ingress:
       tls:
         secretName: ssd-ui-ingress
+
+  ## Shield gateway (agents' gRPC endpoint). The host is also used for
+  ## GATEWAY_EXTERNAL_GRPC_ENDPOINT (<host>:443). Needs DNS, and ingress-nginx
+  ## started with --enable-ssl-passthrough. Ingress is created only when
+  ## global.createIngress and shieldGateway.ingress.enabled are both true.
+  shieldGateway:
+    host: ""            # e.g. ssd-shield.mycompany.com
+    ingressClass: ""    # defaults to ssdUI.ingressClass
+    ingress:
+      enabled: false
+      annotations: {}
 ###########################################################################################################
 airemediation:
   image:

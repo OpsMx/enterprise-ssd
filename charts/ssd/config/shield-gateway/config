@@ -13,9 +13,9 @@ GRAPHQL_TOKEN_PATH: /var/run/secrets/ssd/token
 
 GRAPHQL_DEFAULT_ORG: "{{ .Values.organisationname }}"
 GRAPHQL_DEFAULT_TEAM: "{{ .Values.defaultteam }}"
-# --- Per-environment: the host:443 agents dial. Needs DNS and the same host in
-# ingress/ssd-shield-gateway-grpc-ingress.yaml; not the UI host.
-GATEWAY_EXTERNAL_GRPC_ENDPOINT: "SSD-SHIELD.REPLACE.THIS.WITH.YOURCOMPANY.COM:443"
+# --- Per-environment: the host:443 agents dial. Needs DNS; not the UI host.
+# Set global.shieldGateway.host (also used by the shield gateway ingress).
+GATEWAY_EXTERNAL_GRPC_ENDPOINT: "{{ .Values.global.shieldGateway.host | default "SSD-SHIELD.REPLACE.THIS.WITH.YOURCOMPANY.COM" }}:443"
 
 # --- ssd-opa
 OPA_ENABLED: "true"
