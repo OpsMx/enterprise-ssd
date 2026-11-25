@@ -138,7 +138,7 @@ global:
 airemediation:
   image:
     repository: ai-guardian-remediation
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -175,7 +175,7 @@ telemetry:
 aishield:
   image:
     repository: aishield
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
   
   replicaCount: 1
@@ -193,7 +193,7 @@ aishield:
 aibom:
   image:
     repository: aibom-service
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -211,7 +211,7 @@ aibom:
 artifactscan:
   image:
     repository: artifact-scan
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -227,7 +227,7 @@ artifactscan:
 checkmarx:
   image:
     repository: checkmarx-poller
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -297,12 +297,12 @@ initContainer:
 kubedetector:
   image:
     repository: kubernetes-detector
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 ###################################################################################################################
 kubescape:
   image:
     repository: kubernetes-service
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 ###################################################################################################################
 k8sdecoder:
@@ -313,7 +313,7 @@ k8sdecoder:
 licensegenerator:
   image:
     repository: ssd-license-generator
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -331,7 +331,7 @@ licensegenerator:
 mcpserver:
   image:
     repository: ssd-api-mcp
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -347,7 +347,7 @@ mcpserver:
 opsmxassistant:
   image:
     repository: opsmx-assistant 
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -363,7 +363,7 @@ opsmxassistant:
 pentestgpt:
   image:
     repository: pentestgpt-wrapper
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -379,7 +379,7 @@ pentestgpt:
 projectmonitor:
   image:
     repository: project-monitor
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -401,7 +401,7 @@ projectmonitor:
 shieldgateway:
   image:
     repository: ssd-shield-gateway
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -419,7 +419,7 @@ shieldgateway:
 shieldprocessor:
   image:
     repository: ssd-shield-processor
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -437,7 +437,7 @@ shieldprocessor:
 snykmonitor:
   image:
     repository: snyk-monitor
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -456,7 +456,7 @@ snykmonitor:
 sourcescan:
   image:
     repository: source-scan
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -479,7 +479,7 @@ supplychainapi:
   ## Image specific details
   image:
     repository: supplychain-api
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -524,7 +524,7 @@ supplychainpreprocessor:
   ## Image specific details
   image:
     repository: supplychain-preprocessor
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -545,7 +545,7 @@ supplychainpreprocessor:
 ssdauditservice:
   image:
     repository: ssd-audit-service
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -561,7 +561,7 @@ ssdauditservice:
 ssdgate:
   image:
     repository: ssdgate
-    tag: "2026-10-00"
+    tag: "2026-11-00"
   replicaCount: 1
   installDex: true
   createGateDexSecret: true
@@ -616,7 +616,7 @@ ssdnotificationservice:
   ## Image specific details
   image:
     repository: ssd-notification-service
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -637,7 +637,7 @@ ssdopa:
   ## Image specific details
   image:
     repository: ssd-opa
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -659,7 +659,7 @@ ssdopa:
 ssdrescheduler:
   image:
     repository: ssd-rescheduler
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -713,7 +713,7 @@ toolchain:
   ## Image specific details
   image:
     repository: tool-chain
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -757,7 +757,7 @@ ui:
   ## Image specific details
   image:
     repository: ssd-ui
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -937,7 +937,7 @@ hasura:
 hbom:
   image:
     repository: hbom-generator
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -974,7 +974,7 @@ amicatalog:
 prismiac:
   image:
     repository: prism-iac
-    tag: "2026-10-00"
+    tag: "2026-11-00"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
