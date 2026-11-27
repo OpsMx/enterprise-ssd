@@ -75,9 +75,9 @@ type ApiKey
     name: String! @search(by: [exact, regexp])
     role: Role!
     keyHash: String! @search(by: [hash])
-    createdAt: DateTime! @search
-    updatedAt: DateTime! @search
-    expiresAt: DateTime! @search
+    createdAt: DateTime! @search(by: [hour])
+    updatedAt: DateTime! @search(by: [hour])
+    expiresAt: DateTime! @search(by: [hour])
     status: ApiKeyStatus! @search(by: [hash])
 }
 
@@ -88,7 +88,7 @@ type KeyValue {
     id: String! @id
     name: String! @search(by: [exact, regexp])
     value: String! @search(by: [exact, regexp])
-    createdAt: DateTime! @search
+    createdAt: DateTime! @search(by: [hour])
 }
 
 
@@ -316,8 +316,8 @@ type ShieldAgent
     activeScanCount: Int
     completedScanCount: Int
     failedScanCount: Int
-    lastHeartbeat: DateTime @search
-    connectedAt: DateTime @search
+    lastHeartbeat: DateTime @search(by: [hour])
+    connectedAt: DateTime @search(by: [hour])
     disconnectedAt: DateTime
     team: Team @hasInverse(field: shieldAgents)
     organization: Organization!
@@ -447,7 +447,7 @@ type ApplicationDeployment {
     "artifact that is deployed"
     artifact: [Artifact!] @hasInverse(field: artifactDeployment)
     applicationEnvironment: ApplicationEnvironment!
-    deployedAt: DateTime @search
+    deployedAt: DateTime @search(by: [hour])
     "deploymentStage is an enum and can be discovered, current, previous or blocked"
     deploymentStage: DeploymentStage! @search(by: [exact])
     "denotes if the deployment was for firewall usecase"
@@ -784,9 +784,9 @@ type RunHistory  {
     Cluster: String @search(by: [exact,regexp])
     Application: String @search(by: [exact,regexp])
     TeamID: String @search(by: [exact,regexp])
-    CreatedAt: DateTime! @search
-    UpdatedAt: DateTime! @search
-    DeployedAt: DateTime! @search
+    CreatedAt: DateTime! @search(by: [hour])
+    UpdatedAt: DateTime! @search(by: [hour])
+    DeployedAt: DateTime! @search(by: [hour])
     Hash: String
     diffScan: Boolean! @search
     Pass: Boolean! @search
@@ -832,8 +832,8 @@ type SecurityIssue
     Suggestions: String @search(by: [exact])
     Severity: Severity! @search(by: [exact,regexp])
     SeverityInt: Int! @search
-    CreatedAt: DateTime! @search
-    UpdatedAt: DateTime! @search
+    CreatedAt: DateTime! @search(by: [hour])
+    UpdatedAt: DateTime! @search(by: [hour])
     Action: String! @search(by: [exact,regexp])
     Reason: String @search(by: [exact])
     Error: String @search(by: [exact])
@@ -960,8 +960,8 @@ interface Scan{
     status: String @search(by:[exact])
     detailedStatus: String
     category: String @search(by: [exact,regexp])
-    createdAt: DateTime @search
-    updatedAt: DateTime @search
+    createdAt: DateTime @search(by: [hour])
+    updatedAt: DateTime @search(by: [hour])
 }
 
 type ArtifactScanData {
@@ -972,7 +972,7 @@ type ArtifactScanData {
     tool: String! @search(by: [exact])
     artifactDetails: Artifact @hasInverse(field: scanData)
     lastScannedAt: DateTime
-    createdAt: DateTime @search
+    createdAt: DateTime @search(by: [hour])
     vulnSource: String @search(by: [exact])
     vulnTrackingId: String
     vulnScanState: String @search(by: [exact])
@@ -1031,7 +1031,7 @@ type Component {
     licenseFileURL: String
     purl: String @search(by: [exact, regexp])
     cpe: String @search(by: [exact])
-    scannedAt: DateTime @search
+    scannedAt: DateTime @search(by: [hour])
     analysisRequired: Boolean @search
     analysis: ComponentAnalysis @hasInverse(field: Components)
     vulnerabilities: [Vulnerability!] @hasInverse(field: affects)
@@ -1043,8 +1043,8 @@ type Component {
     description: String @search(by: [exact, regexp])
     supplier: String @search(by: [exact, regexp])
     origin: String @search(by: [exact, regexp])
-    releaseDate: DateTime @search
-    eolDate: DateTime @search
+    releaseDate: DateTime @search(by: [hour])
+    eolDate: DateTime @search(by: [hour])
     supportStatus: String @search(by: [exact, regexp])
     criticality: String @search(by: [exact, regexp])
     executable: Boolean @search
@@ -1058,7 +1058,7 @@ type Component {
     properties: [KeyValue!]
     subComponentRef: Component
     recommendedVersion: String @search (by: [exact])
-    updatedRecommendedVersionAt: DateTime @search
+    updatedRecommendedVersionAt: DateTime @search(by: [hour])
 }
 
 type ComponentAnalysis {
@@ -1081,7 +1081,7 @@ type ComponentAnalysis {
     OmittedLicenses: [String!] @search(by: [exact,regexp])
     CreatedAt: DateTime
     ScannedAt: DateTime
-    LastViewed: DateTime @search
+    LastViewed: DateTime @search(by: [hour])
     BaselineComponent: Component
 }
 
@@ -1113,7 +1113,7 @@ type CIVN{
     Title: String! @search
     Severity: Severity! @search(by: [exact,regexp])
     SourceUrl: String!
-    IssueDate: DateTime! @search
+    IssueDate: DateTime! @search(by: [hour])
     CVES: [String!]
 }
 
@@ -1141,7 +1141,7 @@ type Vulnerability {
     detail: String
     published: DateTime
     modified: DateTime
-    createdAt: DateTime @search
+    createdAt: DateTime @search(by: [hour])
     cvss: Float @search
     attackVector: String @search(by:[exact])
     priorityInt: Int @search
@@ -1199,8 +1199,8 @@ type Exception implements RBAC
     type: String! @search(by: [exact, regexp])
     name: String! @search(by: [exact, regexp])
     affects: [ExceptionAffects!]
-    createdAt: DateTime! @search
-    updatedAt: DateTime! @search
+    createdAt: DateTime! @search(by: [hour])
+    updatedAt: DateTime! @search(by: [hour])
 }
 
 type ExceptionAffects implements RBAC
@@ -1238,9 +1238,9 @@ type ExceptionAffects implements RBAC
     affectsTeam: Team @hasInverse(field: exceptions)
     affectsApplication: Application
     affectsServices: [String!] @search(by: [exact, regexp])
-    validUpTo: DateTime! @search
-    createdAt: DateTime! @search
-    updatedAt: DateTime! @search
+    validUpTo: DateTime! @search(by: [hour])
+    createdAt: DateTime! @search(by: [hour])
+    updatedAt: DateTime! @search(by: [hour])
     reason: String! @search(by: [exact, regexp])
     status: String! @search(by: [exact, regexp])
     exception: Exception! @hasInverse(field: affects)
@@ -1301,8 +1301,8 @@ type ReportSubscription implements RBAC
     integratorConfigs: [IntegratorConfigs!] @hasInverse(field: reportSubscription)
     status: ReportSubscriptionStatus! @search(by: [exact])
     affects: [ReportSubscriptionAffects!]
-    createdAt: DateTime! @search
-    updatedAt: DateTime! @search
+    createdAt: DateTime! @search(by: [hour])
+    updatedAt: DateTime! @search(by: [hour])
 }
 
 type ReportSubscriptionAffects implements RBAC
@@ -1341,8 +1341,8 @@ type ReportSubscriptionAffects implements RBAC
     applicationEnvironment: ApplicationEnvironment @hasInverse(field: reportSubscriptions)
     project: Project @hasInverse(field: reportSubscriptions)
     affectsServices: [String!] @search(by: [exact])
-    createdAt: DateTime! @search
-    updatedAt: DateTime! @search
+    createdAt: DateTime! @search(by: [hour])
+    updatedAt: DateTime! @search(by: [hour])
     reportSubscription: ReportSubscription! @hasInverse(field: affects)
 }
 
@@ -1513,7 +1513,7 @@ type EnrichedFinding  {
     affectedResource: AbstractResource @hasInverse(field: enrichedFindings)
     finding:  PolicyEvaluationData @hasInverse(field: enrichedAffectedResources)
     affectedAttributes: String  @search(by: [exact, regexp])
-    timestamp: DateTime! @search
+    timestamp: DateTime! @search(by: [hour])
     affected: Boolean! @search
     scanData: CSPMScan
 }
@@ -1530,8 +1530,8 @@ type CSPMScan implements Scan {
     detailedStatus: String
     category: String @search(by: [exact,regexp])
     tag: String @search(by: [exact,regexp])
-    createdAt: DateTime @search
-    updatedAt: DateTime @search
+    createdAt: DateTime @search(by: [hour])
+    updatedAt: DateTime @search(by: [hour])
     associatedResourceScanGroup: [CSPMResourceScanGroup!] @hasInverse(field: cspmScan)
 }
 
@@ -1574,8 +1574,8 @@ type Project
     team: Team @hasInverse(field: projects)
     scanType: String @search(by: [exact,regexp])
     scanlevel: String @search(by: [exact,regexp])
-    createdAt: DateTime! @search
-    updatedAt: DateTime! @search
+    createdAt: DateTime! @search(by: [hour])
+    updatedAt: DateTime! @search(by: [hour])
     projectConfigs: [ProjectConfig!] @hasInverse(field: project)
     integratorConfigs: [IntegratorConfigs!] @hasInverse(field: project)
     policies: [PolicyDefinition!] @hasInverse(field: ownerProject)
@@ -1626,8 +1626,8 @@ type ProjectConfig
     branchPattern: String @search(by: [exact,regexp])
     scheduleTime: Int @search
     scheduledScan: Boolean! @search
-    createdAt: DateTime! @search
-    updatedAt: DateTime! @search
+    createdAt: DateTime! @search(by: [hour])
+    updatedAt: DateTime! @search(by: [hour])
     project: Project! @hasInverse(field: projectConfigs)
     integratorConfigs: [IntegratorConfigs!] @hasInverse(field: projectConfig)
     artifactTag: [String!] @search(by:[exact,regexp])
@@ -1685,10 +1685,10 @@ type ScanTarget
     artifactTag: String @search(by:[exact,regexp])
     artifactSha: String @search(by:[exact,regexp])
     lastTriggeredBy: String! @search(by:[exact,regexp])
-    lastScannedTime: DateTime! @search
-    lastAttemptedTime: DateTime! @search
-    createdAt: DateTime! @search
-    updatedAt: DateTime! @search
+    lastScannedTime: DateTime! @search(by: [hour])
+    lastAttemptedTime: DateTime! @search(by: [hour])
+    createdAt: DateTime! @search(by: [hour])
+    updatedAt: DateTime! @search(by: [hour])
     scanResults: [ScanResult!] @hasInverse(field: scanTarget)
     artifactScanData: ArtifactScanData @hasInverse(field: scanTarget)
     error: String @search(by: [exact,regexp])
@@ -1737,8 +1737,8 @@ type ScanResult
     scanType: String! @search(by:[exact])
     resultFile: String! @search(by:[exact])
     scanTool: String! @search(by:[exact,regexp])
-    scannedAt: DateTime! @search
-    scanDuration: DateTime! @search
+    scannedAt: DateTime! @search(by: [hour])
+    scanDuration: DateTime! @search(by: [hour])
     riskStatus: RiskStatus @search(by: [exact,regexp])
     scanTarget: ScanTarget! @hasInverse(field: scanResults)
     error: String @search(by: [exact,regexp])

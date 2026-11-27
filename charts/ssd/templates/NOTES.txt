@@ -25,3 +25,9 @@ Create them yourself, or install with
 (ai-secrets.local.yaml is a copy of ai-secrets.example.yaml with real values).
 SECURITY: never commit or push files containing real tokens/passwords to any repository.
 {{- end }}
+
+{{- if and .Values.global.createIngress .Values.global.shieldGateway.ingress.enabled }}
+
+Shield gateway gRPC endpoint: {{ .Values.global.shieldGateway.host }}:443
+  Requires DNS for the host and ingress-nginx started with --enable-ssl-passthrough.
+{{- end }}

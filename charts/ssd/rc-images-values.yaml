@@ -4,19 +4,19 @@ imageCredentials:
   registry: opsmx11
 aibom:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 aishield:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 artifactscan:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 airemediation:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 cbom:
   image:
@@ -24,7 +24,7 @@ cbom:
 
 checkmarx:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 dlvs:
   image:
@@ -32,15 +32,15 @@ dlvs:
 
 hbom:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 kubescape:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 licensegenerator:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 mobsf:
   image:
@@ -48,64 +48,64 @@ mobsf:
 
 opsmxassistant:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 projectmonitor:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 prismiac:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 pentestgpt:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 shieldgateway:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 shieldprocessor:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 snykmonitor:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 sourcescan:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 supplychainapi:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 supplychainpreprocessor:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 ssdauditservice:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 ssdgate:
   image:
     repository: ssd-gate
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 ssdnotificationservice:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 ssdopa:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 ssdrescheduler:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 tokenmachine:
   image:
@@ -113,27 +113,28 @@ tokenmachine:
 
 toolchain:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 ui:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
   serviceAnnotations:
     awsAnnotationsGo: HERE
 
 aws-poller:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 kubedetector:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 mcpserver:
   image:
-    tag: "2026-10-00"
+    tag: "2026-11-00"
 
 zap:
   image:
     repository: zap
     tag: "2026-03-00"
+

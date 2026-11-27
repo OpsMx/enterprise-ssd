@@ -479,6 +479,16 @@ Return the proper HBOM Image
 {{- printf "%s/%s:%s" $registryName $repositoryName $tag -}}
 {{- end -}}
 
+{{/*
+Return the proper AMI CATALOG Image
+*/}}
+{{- define "amicatalog.image" -}}
+{{- $registryName := .Values.imageCredentials.registry -}}
+{{- $repositoryName := .Values.amicatalog.image.repository -}}
+{{- $tag := .Values.amicatalog.image.tag | toString -}}
+{{- printf "%s/%s:%s" $registryName $repositoryName $tag -}}
+{{- end -}}
+
 Return the proper SHEID PROCESSOR Image
 */}}
 {{- define "shieldprocessor.image" -}}

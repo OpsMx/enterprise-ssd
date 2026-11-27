@@ -30,7 +30,8 @@
     "integrator_created",
     "integrator_updated",
     "integrator_deleted",
-    "integrator_status_updated"
+    "integrator_status_updated",
+    "integrator_secrets_read"
   ],
   "api_key_management": [
     "apikey_user_created",
@@ -111,5 +112,17 @@
     "remediation_failed",
     "pr_created",
     "pr_creation_failed"
+  ],
+  "hbom_scan_config_activity": [
+    "hbom_scan_config_created",
+    "hbom_scan_config_updated",
+    "hbom_scan_config_deleted",
+    "hbom_scan_config_triggered"
+  ],
+  "license_activity": [
+    "license_updated"
+  ],
+  "component_activity": [
+    "component_comment_updated"
   ]
 }

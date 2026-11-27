@@ -86,6 +86,31 @@
   log_traffic: true
   auth_required: true
   token_type: teamToken
+# OP-26140: central SSD APIs called by other SSD installs with an API key.
+# Keep them ahead of supplychain-api and ssd-api-mcp's catch-all /api/v1.
+- name: ami-catalog-public-ami-scan  # which public AMIs the central SSD can scan, its public AMI list and regions
+  path_prefixes:
+  - "/public-ami-scan/api/v1/publicAmi/scannable"
+  - "/public-ami-scan/api/v1/publicAmi/images"
+  - "/public-ami-scan/api/v1/publicAmi/regions"
+  strip_path: "/public-ami-scan"     # -> ami-catalog:8200/api/v1/publicAmi/...
+  baseUrl: ami-catalog:8200
+  streaming: true                    # keep the catalog's gzip end to end; needs ssd-gate with ssdgate #104
+  health_endpoint: /health
+  auth_required: true
+  allow_api_key: true                # ApiKeyMiddleware accepts X-OpsMx-ApiKey and exchanges it for a userToken
+  token_type: userToken              # required pairing for allow_api_key
+  log_traffic: false                 # true would log the API key header
+- name: tool-chain-public-ami-scan  # public AMI SBOMs
+  path_prefixes:
+  - "/public-ami-scan"
+  strip_path: "/public-ami-scan"     # /public-ami-scan/api/v1/publicAmi/... -> tool-chain:8100/api/v1/publicAmi/...
+  baseUrl: tool-chain:8100
+  health_endpoint: /health
+  auth_required: true
+  allow_api_key: true
+  token_type: userToken
+  log_traffic: false
 - name: supplychain-api  # Name
   path_prefixes:
   - "/ssdservice"        # incoming calls are routed based on this. Processed in Order i.e. we can have multiple of these going to the same backend

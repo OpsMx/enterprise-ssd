@@ -1,0 +1,28 @@
+{{- if and .Values.global.createIngress .Values.global.shieldGateway.ingress.enabled -}}
+# Agents' gRPC endpoint. No tls block: the gateway terminates mTLS itself, so ingress-nginx
+# must run with --enable-ssl-passthrough (cluster-wide).
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+{{- if .Values.global.shieldGateway.ingress.annotations }}
+{{ tpl (toYaml .Values.global.shieldGateway.ingress.annotations) . | indent 4 }}
+{{- end }}
+  name: ssd-shield-gateway-grpc-ingress
+spec:
+{{- with (.Values.global.shieldGateway.ingressClass | default .Values.global.ssdUI.ingressClass) }}
+  ingressClassName: {{ . }}
+{{- end }}
+  rules:
+  - host: {{ required "global.shieldGateway.host is required when global.shieldGateway.ingress.enabled is true" .Values.global.shieldGateway.host }}
+    http:
+      paths:
+      - backend:
+          service:
+            name: ssd-shield-gateway
+            port:
+              number: 9443
+        path: /
+        pathType: ImplementationSpecific
+{{- end }}

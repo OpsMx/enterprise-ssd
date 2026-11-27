@@ -18,6 +18,7 @@ spec:
         component: hbom-generator
 {{ include "ssd.standard-labels" . | indent 8 }}
       annotations:
+        checksum/configmap: {{ include (print $.Template.BasePath "/hbom/cm.yaml") . | sha256sum }}
 {{- if .Values.hbom.annotations -}}
         {{ toYaml .Values.hbom.annotations | nindent 8 }}
 {{- end }}
@@ -29,6 +30,7 @@ spec:
         - name: hbom-generator
           image: {{ template "hbom.image" . }}
           env:
+          # For AWS S3, drop S3_ENDPOINT_URL and set S3_Region, as in the gateway.
           {{- if .Values.minio.enabled }}
           - name: S3_ENDPOINT_URL
             value: "http://{{ .Release.Name }}-minio:9000"
@@ -74,6 +76,27 @@ spec:
             - name: gateway-ca-cert
               readOnly: true
               mountPath: /app/certs/gateway
+          {{- with .Values.hbom.probes }}
+          {{- toYaml . | nindent 10 }}
+          {{- else }}
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8090
+              scheme: HTTP
+            periodSeconds: 15
+            failureThreshold: 20
+            successThreshold: 1
+            timeoutSeconds: 1
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8090
+              scheme: HTTP
+            periodSeconds: 15
+            failureThreshold: 3
+            timeoutSeconds: 1
+          {{- end }}
       {{- with .Values.hbom.resources }}
           resources:
       {{- toYaml . | nindent 12 }}

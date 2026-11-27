@@ -1,0 +1,12 @@
+{{- /* OP-26140: ami-catalog, central SSD only. Tells local SSDs which public AMIs
+the central SSD can scan. */}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ami-catalog
+  labels:
+    app: ssd
+    component: ami-catalog
+{{ include "ssd.standard-labels" . | indent 4 }}
+data:
+{{ (tpl (.Files.Glob "config/ami-catalog/config.yaml").AsConfig . ) | indent 2 }}
